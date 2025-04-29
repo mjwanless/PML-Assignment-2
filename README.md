@@ -1,80 +1,110 @@
 # PML Assignment 2: Credit Default Prediction
 
-This project focuses on developing a machine learning model to predict credit default risk using structured financial data. It encompasses data preprocessing, model training, evaluation, and generating predictions for unseen data.
+This project builds, evaluates, and deploys multiple machine learning models to predict the likelihood of a customer defaulting on their credit payment. The workflow includes extensive feature engineering, model training, performance evaluation, hyperparameter tuning, and ensemble stacking.
 
-## 📁 Project Structure
+## 🔍 Problem Overview
+
+The dataset includes historical credit data, demographic info, and bill/payment behavior. The goal is to predict whether a user will default (`CreditDefault = 1`) based on these features.
+
+---
+
+## 📂 Repository Structure
 
 ```
 PML-Assignment-2/
-├── CreditDefault.csv                 # Primary dataset for training
-├── CreditDefault_Mystery.csv         # Unlabeled dataset for prediction
-├── CreditDefault_Predictions.csv     # Output predictions
-├── train.csv                         # Processed training data
-├── test.csv                          # Processed test data
-├── TrainingScript.py                 # Script for model training and evaluation
-├── Production.py                     # Script for generating predictions
-├── Visualizations/                   # Directory for plots and visualizations
-└── BinaryFolder/                     # Directory for serialized models or outputs
+├── BinaryFolder/                      # Saved model binaries and scaler
+│   ├── GradientBoosting_model.pkl
+│   ├── LogisticRegression_model.pkl
+│   ├── RandomForest_model.pkl
+│   ├── StackedModel.pkl
+│   ├── nn_model.h5
+│   └── scaler.pkl
+├── Visualizations/                    # Plots and model diagnostics
+├── CreditDefault.csv                 # Raw dataset
+├── CreditDefault_Mystery.csv         # Unlabeled dataset for inference
+├── CreditDefault_Predictions.csv     # Final predictions output
+├── test.csv                          # Validation split
+├── train.csv                         # Training split
+├── TrainingScript.py                 # Full training + tuning + evaluation pipeline
+├── Production.py                     # Inference pipeline for test data
+└── README.md                         # Project documentation
 ```
 
-## 🧠 Approach
+---
 
-- **Data Preprocessing**: The raw data is cleaned and split into training and testing sets (`train.csv` and `test.csv`).
-- **Model Training**: Utilizes machine learning algorithms (e.g., Random Forest, Logistic Regression) to train on the processed data.
-- **Evaluation**: Assesses model performance using appropriate metrics to ensure reliability.
-- **Prediction**: Applies the trained model to `CreditDefault_Mystery.csv` to predict default risks, outputting results to `CreditDefault_Predictions.csv`.
+## ⚙️ Models Used
 
-## 🚀 Getting Started
+- **Logistic Regression**
+- **Random Forest Classifier**
+- **Gradient Boosting Classifier**
+- **Deep Neural Network** (3 hidden layers, tuned via randomized search)
+- **Stacked Model (Ensemble)** using Logistic Regression on top of base model outputs
 
-### Prerequisites
+---
 
-- Python 3.7 or higher
-- Recommended: Create a virtual environment to manage dependencies.
+## 📊 Features & Engineering
 
-### Installation
+- Raw features: demographic data, bill amounts, payment statuses
+- Engineered features:
+  - `TOTAL_BILL`, `TOTAL_PAY`, `PAYMENT_RATIO`
+  - `AVG_BILL_AMT`, `AVG_PAY_AMT`
+  - `LATE_PAYMENT_COUNT`
+- Scaling: `StandardScaler` applied to all numerical features
 
-1. **Clone the repository**:
+---
 
-   ```bash
-   git clone https://github.com/mjwanless/PML-Assignment-2.git
-   cd PML-Assignment-2
-   ```
+## 🧪 Model Evaluation
 
+- Metric: **F1 Score**
+- Evaluation: Stratified Train/Validation split with K-Fold CV for base models
+- Plots generated:
+  - ROC curves
+  - Confusion matrices
+  - Feature importance
+  - Neural net training history
+  - Stacked model weight visualizations
+  - F1 comparison bar chart
 
+---
 
-2. **Install dependencies**:
+## 🚀 How to Run
 
-   Ensure you have the necessary Python packages installed. If a `requirements.txt` file is provided, you can install dependencies using:
+### 1. Clone & Setup
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-   If not, manually install required packages such as `pandas`, `numpy`, `scikit-learn`, and `matplotlib`.
+```bash
+git clone https://github.com/mjwanless/PML-Assignment-2.git
+cd PML-Assignment-2
+pip install -r requirements.txt  # if available, otherwise install manually
+```
 
-### Usage
+### 2. Train Models
 
-1. **Train the model**:
+```bash
+python TrainingScript.py
+```
 
-   Run the training script to train and evaluate the model:
+- Models will be saved to `BinaryFolder/`
+- Visuals will be saved in `Visualizations/`
 
-   ```bash
-   python TrainingScript.py
-   ```
-   This will process the data, train the model, and save evaluation metrics and visualizations in the `Visualizations/` directory.
+### 3. Generate Predictions
 
-2. **Generate predictions**:
+```bash
+python Production.py
+```
 
-   Use the production script to generate predictions on the mystery dataset:
+- Predictions for `CreditDefault_Mystery.csv` are saved to `CreditDefault_Predictions.csv`
 
-   ```bash
-   python Production.py
-   ```
-   Predictions will be saved to `CreditDefault_Predictions.csv`.
+---
 
-## 📊 Visualizations
+## 📦 Dependencies (partial)
 
-The `Visualizations/` directory contains plots and graphs that provide insights into data distributions, model performance, and feature importance.
+- `scikit-learn`
+- `tensorflow` / `keras`
+- `pandas`, `numpy`, `matplotlib`, `seaborn`
+- `joblib`
 
-## 📄 License
+---
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 📜 License
+
+This project is released under the MIT License.
