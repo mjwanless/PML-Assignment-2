@@ -1,8 +1,3 @@
-[![Illustration of the proposed machine learning (PML) model. | Download ...](https://tse2.mm.bing.net/th?id=OIP.bpy0H8SSTGGbrRX53mdOnAHaGw&pid=Api)](https://www.researchgate.net/figure/Illustration-of-the-proposed-machine-learning-PML-model_fig1_353801047)
-Based on the contents of your GitHub repository [mjwanless/PML-Assignment-2](https://github.com/mjwanless/PML-Assignment-2), here's a structured `README.md` tailored to your project:
-
----
-
 # PML Assignment 2: Credit Default Prediction
 
 This project focuses on developing a machine learning model to predict credit default risk using structured financial data. It encompasses data preprocessing, model training, evaluation, and generating predictions for unseen data.
@@ -83,7 +78,3 @@ The `Visualizations/` directory contains plots and graphs that provide insights 
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-If you have specific details about the algorithms used, feature engineering techniques, or evaluation metrics, please provide them so I can further tailor the README to your project's specifics. 
